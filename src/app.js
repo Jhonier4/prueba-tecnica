@@ -9,10 +9,11 @@ app.use(express.json());
 
 initializeDatabase();
 
-// ruta de prueba
-app.get("/", (req, res) => {
-  res.send("API funcionandooooooo");
-});
+const consumersRoutes = require('./routes/consumers.routes');
+app.use('/consumers', consumersRoutes);
+
+const productsRoutes = require('./routes/products.routes');
+app.use('/products', productsRoutes);
 
 // iniciar servidor
 app.listen(3000, () => {
