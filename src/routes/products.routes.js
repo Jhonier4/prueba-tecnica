@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 //crear producto
 router.post('/', (req, res) => {
-    const { name, price, stock } = req.body;
+    const { name, price, stock, description } = req.body;
     if (!name || price === undefined) {
         return res.status(400).json({ error: 'Nombre y precio son requeridos' });
     }
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
     } 
     try {
         const result = db.prepare('INSERT INTO products (name, price, stock, description) VALUES (?, ?, ?, ?)').run(name, price, stock ?? 0, description ?? null);
-        res.status(201).json({ id: result.lastInsertRowid, name, price, stock: stock ?? 0 });
+        res.status(201).json({ id: result.lastInsertRowid, name, price, stock: stock ?? 0, description: description ?? null });
     } catch (error) {
         res.status(500).json({ error: 'Error del servidor' });
     }
