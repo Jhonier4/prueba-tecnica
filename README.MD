@@ -91,6 +91,10 @@ Para crear una orden el body:
 - Calcular totales de las ordenes 
 - Ver el detalle de una orden
 
+## link de despliegues
+- https://prueba-tecnica-dk1d.onrender.com/
+- https://prueba-tecnica-jhonier.vercel.app/
+
 
 
 
