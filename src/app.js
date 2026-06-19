@@ -15,6 +15,9 @@ app.use('/consumers', consumersRoutes);
 const productsRoutes = require('./routes/products.routes');
 app.use('/products', productsRoutes);
 
+const ordersRoutes = require('./routes/orders.routes');
+app.use('/orders', ordersRoutes);
+
 // iniciar servidor
 app.listen(3000, () => {
   console.log("Servidor corriendo en http://localhost:3000");
