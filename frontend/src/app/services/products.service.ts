@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductsService {
 
-  private apiUrl = 'http://localhost:3000/products';
+  private apiUrl = 'https://prueba-tecnica-dk1d.onrender.com/products';
 
   constructor(private http: HttpClient) { }
 
