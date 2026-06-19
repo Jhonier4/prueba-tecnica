@@ -1,18 +1,53 @@
-<h2>Consumidores</h2>
+<div class="p-10 max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-center">Consumidores</h2>
 
+  <!-- Formulario -->
+  <div class="mb-6 p-4 border rounded bg-white max-w-md">
+    <h3 class="font-semibold mb-3">Nuevo consumidor</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let consumer of consumers()">
-      <td>{{ consumer.id }}</td>
-      <td>{{ consumer.name }}</td>
-      <td>{{ consumer.email }}</td>
-    </tr>
-  </tbody>
-</table>
+    <label class="block text-sm font-semibold mb-1">Nombre</label>
+    <input [(ngModel)]="newName" placeholder="Nombre completo" class="border p-2 rounded w-full mb-3">
+
+    <label class="block text-sm font-semibold mb-1">Email</label>
+    <input [(ngModel)]="newEmail" placeholder="correo@ejemplo.com" class="border p-2 rounded w-full mb-3">
+
+    <button (click)="createConsumer()" class="bg-green-600 text-white px-4 py-2 rounded w-full">
+      Crear consumidor
+    </button>
+  </div>
+
+  <!-- Tabla -->
+  <table class="w-full text-left bg-white border rounded">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-2">Id</th>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Email</th>
+        <th class="p-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consumer of consumers()" class="border-t">
+        <td class="p-2">{{ consumer.id }}</td>
+        <td class="p-2">
+          <span *ngIf="editingId !== consumer.id">{{ consumer.name }}</span>
+          <input *ngIf="editingId === consumer.id" [(ngModel)]="editName" class="border p-1 rounded w-full">
+        </td>
+        <td class="p-2">
+          <span *ngIf="editingId !== consumer.id">{{ consumer.email }}</span>
+          <input *ngIf="editingId === consumer.id" [(ngModel)]="editEmail" class="border p-1 rounded w-full">
+        </td>
+        <td class="p-2 flex gap-2">
+          <ng-container *ngIf="editingId !== consumer.id">
+            <button (click)="startEdit(consumer)" class="bg-yellow-500 text-white px-3 py-1 rounded">Editar</button>
+            <button (click)="deleteConsumer(consumer.id)" class="bg-red-600 text-white px-3 py-1 rounded">Eliminar</button>
+          </ng-container>
+          <ng-container *ngIf="editingId === consumer.id">
+            <button (click)="saveEdit()" class="bg-green-600 text-white px-3 py-1 rounded">Guardar</button>
+            <button (click)="cancelEdit()" class="bg-gray-400 text-white px-3 py-1 rounded">Cancelar</button>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

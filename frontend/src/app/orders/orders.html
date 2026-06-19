@@ -1,21 +1,91 @@
-<h2>ordernes</h2>
+<div class="p-10 max-w-3xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-center">Órdenes</h2>
 
+  <!-- Formulario -->
+  <div class="mb-8 p-6 border rounded-lg bg-white shadow-sm">
+    <h3 class="text-lg font-semibold mb-4">Nueva orden</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Consumidor</th>
-      <th>Total</th>
-      <th>Fecha</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let order of orders()">
-      <td>{{ order.id }}</td>
-      <td>{{ order.consumer_name }}</td>
-      <td>{{ order.total }}</td>
-      <td>{{ order.created_at }}</td>
-    </tr>
-  </tbody>
-</table>
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">Consumidor</label>
+      <select [(ngModel)]="selectedConsumerId" class="w-full border rounded px-3 py-2">
+        <option [value]="null">Seleccionar un Consumidor</option>
+        <option *ngFor="let consumer of consumers()" [value]="consumer.id">{{ consumer.name }}</option>
+      </select>
+    </div>
+
+    <div class="mb-4 flex gap-2 items-end">
+      <div class="flex-1">
+        <label class="block font-semibold mb-1">Producto</label>
+        <select [(ngModel)]="selectedProductId" class="border p-2 rounded w-full">
+          <option [value]="null">Selecciona un producto</option>
+          <option *ngFor="let product of products()" [value]="product.id">
+            {{ product.name }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Cantidad</label>
+        <input type="number" [(ngModel)]="selectedQuantity" min="1" class="border p-2 rounded w-24">
+      </div>
+
+      <button (click)="addItem()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Agregar ítem
+      </button>
+    </div>
+
+    <div class="mb-4" *ngIf="items.length > 0">
+      <h4 class="font-semibold mb-2">Ítems agregados:</h4>
+      <ul class="list-disc pl-5 space-y-1">
+        <li *ngFor="let item of items">
+          Producto: {{ item.product_id }} — Cantidad: {{ item.quantity }}
+        </li>
+      </ul>
+    </div>
+
+    <button (click)="createOrder()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+      Crear orden
+    </button>
+  </div>
+
+  <!-- Lista -->
+  <div class="mb-8 bg-white border rounded-lg shadow-sm overflow-hidden">
+    <table class="w-full text-left">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="p-3">Id</th>
+          <th class="p-3">Consumidor</th>
+          <th class="p-3">Total</th>
+          <th class="p-3">Fecha</th>
+          <th class="p-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders()" class="border-t">
+          <td class="p-3">{{ order.id }}</td>
+          <td class="p-3">{{ order.consumer_name }}</td>
+          <td class="p-3">{{ order.total }}</td>
+          <td class="p-3">{{ order.created_at }}</td>
+          <td class="p-3">
+            <button (click)="viewOrder(order.id)" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+              Ver detalle
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Detalle -->
+  <div *ngIf="selectedOrder()" class="p-6 border rounded-lg bg-gray-50 shadow-sm">
+    <h3 class="font-bold text-lg mb-2">Orden #{{ selectedOrder().id }}</h3>
+    <p>Consumidor: {{ selectedOrder().consumer_name }}</p>
+    <p>Total: {{ selectedOrder().total }}</p>
+    <h4 class="font-semibold mt-3 mb-1">Productos:</h4>
+    <ul class="list-disc pl-5 space-y-1">
+      <li *ngFor="let item of selectedOrder().items">
+        {{ item.product_name }} — Cantidad: {{ item.quantity }} — Precio: {{ item.price }}
+      </li>
+    </ul>
+  </div>
+</div>
