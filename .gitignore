@@ -1,6 +1,6 @@
 node_modules/
 
-backend/database.sqlite
+backend/src/models/database.sqlite
 
 frontend/.angular/
 frontend/dist/
