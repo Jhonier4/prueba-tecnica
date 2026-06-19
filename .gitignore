@@ -1,0 +1,8 @@
+node_modules/
+
+backend/database.sqlite
+
+frontend/.angular/
+frontend/dist/
+
+.DS_Store
