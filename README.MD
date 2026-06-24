@@ -8,7 +8,7 @@ Jhonier David Ortiz Hernandez
 
 - Backend: Node.js + Express
 - Base de datos: SQLite (better-sqlite3)
-- Frontend: Angular (con signals)
+- Frontend: Angular 
 - Estilos: Tailwind CSS via CDN
 
 ## Estructura del proyecto
